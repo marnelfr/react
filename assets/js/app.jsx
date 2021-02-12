@@ -1,17 +1,17 @@
-function WelcomeFunc({name, children}) {
-  return <div>
-    <h1>Bonjour {name}</h1>
-    <p>{children}</p>
-  </div>
+function WelcomeFunc(props) {
+  return <h1>Bonjour {props.name}</h1>
 }
 
 class Welcome extends React.Component {
 
+
   render() {
-    return <div>
-      <h1>Bonjour {this.props.name}</h1>
-      <p>{this.props.children}</p>
-    </div>
+    return <React.Fragment>
+      <h1>
+        {this.props.name}
+      </h1>
+      <span>{this.props.children}</span>
+    </React.Fragment>
   }
 
 }
@@ -33,56 +33,90 @@ class Clock extends React.Component {
   }
 
   tick() {
-    this.setState({date: new Date()})
+    this.setState((state, props) => ({date: new Date()}))
   }
 
   render() {
     return <p>
-      Il est {this.state.date.toLocaleString()}
+      Nous sommes le {this.state.date.toLocaleDateString()} et il est {this.state.date.toLocaleTimeString()}
     </p>
   }
-
 }
 
-class Incrementor extends React.Component {
+class Timer extends React.Component {
 
   constructor(props) {
     super(props)
-    this.start = Number.parseInt(this.props.start)
-    this.state = {start: this.start}
-    this.timer = null
+    this.state = {second: 0, paused: false, timer: null}
+    this.pause = this.pause.bind(this)
+    this.clear = this.clear.bind(this)
   }
 
   componentDidMount() {
-    this.timer = window.setInterval(this.increment.bind(this), 1000)
+    this.startTimer()
   }
 
   componentwillUnmount() {
     window.clearInterval(this.timer)
   }
 
-  increment() {
-    this.setState((state, props) => ({start: state.start+props.step}))
+  seconder() {
+    this.setState((state, props) => ({second: ++state.second}))
   }
 
-  render() {
-    return <span>{this.state.start}</span>
+  startTimer() {
+    this.setState((state, props) => ({timer: window.setInterval(this.seconder.bind(this), 1000)}))
   }
 
-}
+  stopTimer() {
+    this.setState((state, props) => {
+      window.clearInterval(state.timer)
+      return {timer: null}
+    })
+  }
 
-class Home extends React.Component {
+  clear(e) {
+    e.preventDefault()
+    this.stopTimer()
+    this.state.second = 0
+    this.startTimer()
+  }
+
+  pause(e) {
+    e.preventDefault()
+    this.setState((state, props) => {
+      if (!state.paused) {
+        this.stopTimer()
+      } else {
+        this.startTimer()
+      }
+      return {paused: !state.paused}
+    })
+  }
 
   render() {
     return <div>
-      <Welcome name={this.props.name}/>
-      <Welcome name={this.props.className}>Voila ce que je disais l'autre jour quand on s'est rencontré</Welcome>
-      <Clock />
-      <Incrementor start="10" step={5} />
+      <p>
+        Vous êtes sur la page depuis {this.state.second} secondes
+      </p>
+      <button onClick={this.pause}>{this.state.paused ? 'Play' : 'Pause'}</button>
+      <button onClick={this.clear}>Clear</button>
     </div>
   }
 
 }
 
 
-ReactDOM.render(<Home name="Marnel" className="Jean"/>, document.querySelector('#app'))
+class Home extends React.Component {
+
+  render() {
+    return <React.Fragment>
+      <Welcome name={this.props.name}/>
+      <Clock />
+      <Timer />
+    </React.Fragment>
+  }
+
+}
+
+ReactDOM.render(<Home name={"Jean"}>Soyez les bienvenu</Home>, document.getElementById('app'))
