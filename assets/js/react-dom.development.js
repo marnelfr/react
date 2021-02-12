@@ -23330,7 +23330,7 @@
         assignFiberPropertiesInDEV(unitOfWork, originalWorkInProgressCopy);
 
         if ( unitOfWork.mode & ProfileMode) {
-          // Reset the profiler timer.
+          // Reset the profiler startTimer.
           startProfilerTimer(unitOfWork);
         } // Run beginWork again.
 

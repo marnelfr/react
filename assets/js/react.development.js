@@ -542,12 +542,11 @@
    *
    * @param {object|function} partialState Next partial state or function to
    *        produce next partial state to be merged with current state.
-   * @param {?function} callback Called after state is updated.
    * @final
    * @protected
    */
 
-  Component.prototype.setState = function (partialState, callback) {
+  Component.prototype.setState = function (partialState) {
     if (!(typeof partialState === 'object' || typeof partialState === 'function' || partialState == null)) {
       {
         throw Error( "setState(...): takes an object of state variables to update or a function which returns an object of state variables." );
