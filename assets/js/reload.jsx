@@ -86,7 +86,7 @@ class Field extends React.Component {
   constructor(props) {
     super(props)
     this.state = {val: props.value || ''}
-    if (!!props.checked) {
+    if (props.checked) {
       this.state.val = props.checked
     }
     this.handleChange = this.handleChange.bind(this)

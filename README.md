@@ -33,3 +33,14 @@ From an syntheticEvent,
 - Default input only exist after the first call of `render()`. They can then only be accessed in a later method.
 - Instead of select default input directly from the VirtualDOM every time, we can initialised to null their container in the constructor and affect once to those container, the default input target
 
+### Communication between two components
+To make two siblings components communicate, they should'nt define their own state.
+The state should be set on a component that hold these two thus their parent component.
+
+### Attributes and their method
+For an `action`, the html attribute should be called `onAction` and the method executed, `handleAction`\
+E.g.: 
+- onClick => handleClick 
+- onChange => handleChange
+- onMouseOver => handleMouseOver
+- onOpacityChange => handleOpacityChange
