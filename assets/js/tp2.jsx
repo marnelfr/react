@@ -42,7 +42,6 @@ function CheckBox({id, val, onChange, children}) {
 
 function DataRow({name, price, stocked, title}) {
   price = parseFloat(price) ? '$' + price : price
-  // key = key ? `key="${key}"` : null
   return <div className={title ? 'row h5 border pt-2 pb-2' : 'row border-bottom'}>
     <div className={stocked ? 'col-8' : 'col-8 text-danger'}>{name}</div>
     <div className="col-4">{price}</div>
