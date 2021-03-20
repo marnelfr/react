@@ -40,7 +40,7 @@ function Container({col, children}) {
  * @param val
  * @param onChange
  * @param children
- * @returns {*}
+ * @returns {React.Component}
  * @constructor
  */
 function Input({type, id, placeholder, val, onChange, children}) {
@@ -57,7 +57,7 @@ function Input({type, id, placeholder, val, onChange, children}) {
  * @param placeholder
  * @param val
  * @param onChange
- * @returns {*}
+ * @returns {React.Component}
  * @constructor
  */
 function TextInput({id, placeholder, val, onChange}) {
@@ -70,7 +70,7 @@ function TextInput({id, placeholder, val, onChange}) {
  * @param val
  * @param onChange
  * @param children
- * @returns {*}
+ * @returns {React.Component}
  * @constructor
  */
 function CheckBox({id, val, onChange, children}) {
@@ -88,7 +88,7 @@ function CheckBox({id, val, onChange, children}) {
  * @param price
  * @param stocked
  * @param title
- * @returns {*}
+ * @returns {React.Component}
  * @constructor
  */
 function DataRow({name, price, stocked, title}) {
@@ -111,7 +111,7 @@ class DataTable extends React.Component {
   /**
    * Returns only stocked articles when onlyStocked is set to true
    * @param onlyStocked
-   * @returns {*}
+   * @returns {Array}
    */
   filterData(onlyStocked = false) {
     return this.props.data.filter(datum => {
