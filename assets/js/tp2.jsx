@@ -1,3 +1,26 @@
+/**
+ * Returns data's categories
+ * @param data
+ * @returns {Array}
+ */
+function getCategories(data) {
+  const categories = []
+  data.forEach((datum) => {
+    if (categories.indexOf(datum.category)<0) {
+      categories.push(datum.category)
+    }
+  })
+  return categories
+}
+
+
+/**
+ * The main container
+ * @param {int} col - The main column width
+ * @param {React.Component} children
+ * @returns {React.Component}
+ * @constructor
+ */
 function Container({col, children}) {
   const offset = (12-col)/2
   return <div className="container mt-4">
@@ -9,16 +32,17 @@ function Container({col, children}) {
   </div>
 }
 
-function getCategories(data) {
-  const categories = []
-  data.forEach((datum) => {
-    if (categories.indexOf(datum.category)<0) {
-      categories.push(datum.category)
-    }
-  })
-  return categories
-}
-
+/**
+ * Input component
+ * @param type
+ * @param id
+ * @param placeholder
+ * @param val
+ * @param onChange
+ * @param children
+ * @returns {*}
+ * @constructor
+ */
 function Input({type, id, placeholder, val, onChange, children}) {
   placeholder = placeholder || ''
   return <div className="form-group">
@@ -27,10 +51,28 @@ function Input({type, id, placeholder, val, onChange, children}) {
   </div>
 }
 
+/**
+ * Input with type text component
+ * @param id
+ * @param placeholder
+ * @param val
+ * @param onChange
+ * @returns {*}
+ * @constructor
+ */
 function TextInput({id, placeholder, val, onChange}) {
   return <Input type="text" id={id} value={val} placeholder={placeholder} onChange={onChange}/>
 }
 
+/**
+ * Checkbox component
+ * @param id
+ * @param val
+ * @param onChange
+ * @param children
+ * @returns {*}
+ * @constructor
+ */
 function CheckBox({id, val, onChange, children}) {
   return <div className="text-center">
     <div className="form-group">
@@ -40,6 +82,15 @@ function CheckBox({id, val, onChange, children}) {
   </div>
 }
 
+/**
+ * Displays an element in data
+ * @param name
+ * @param price
+ * @param stocked
+ * @param title
+ * @returns {*}
+ * @constructor
+ */
 function DataRow({name, price, stocked, title}) {
   price = parseFloat(price) ? '$' + price : price
   return <div className={title ? 'row h5 border pt-2 pb-2' : 'row border-bottom'}>
@@ -48,12 +99,20 @@ function DataRow({name, price, stocked, title}) {
   </div>
 }
 
+/**
+ * Main component that display articles in data
+ */
 class DataTable extends React.Component {
 
   constructor(props) {
     super(props)
   }
 
+  /**
+   * Returns only stocked articles when onlyStocked is set to true
+   * @param onlyStocked
+   * @returns {*}
+   */
   filterData(onlyStocked = false) {
     return this.props.data.filter(datum => {
       if (onlyStocked) return datum.stocked
@@ -61,6 +120,10 @@ class DataTable extends React.Component {
     })
   }
 
+  /**
+   * Returns a table of articles' DataRow component
+   * @returns {Array}
+   */
   getRows() {
     let table = []
     this.props.categories.forEach((category, key) => {
@@ -86,7 +149,7 @@ class DataTable extends React.Component {
 }
 
 
-
+//Supposed data get from an API
 const data = [
   {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
   {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
