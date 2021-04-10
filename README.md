@@ -68,3 +68,20 @@ They are create using `this.input = this.createRef()` in the constructor and the
 The node can then be retrieve using `this.input.current`. Always check if it's not `null` before using it.
 Should only be used to make our component's node communicate with tiers library or only with **not controlled fields**\
 `React.forwardRef(MyComponent)` allow us to pass ref from a parent component.
+
+## Create-React-App
+In order to facilitate the development using react, we can use its modern build setup with no configuration.
+It can be installed with the command `npx create-react-app my-app` 
+
+## Parcel
+In addition to create-react-app, we can also use parcel to facilitate our development using react or any other library.
+To add it to our project, we've got to install it with the command: 
+- `yarn init [-y]`
+- `yarn add -D parcel-bundler` or `yarn add -D parcel@next` for the version 2.0.0 that have the fast refresh that's done without making our components loosing they state
+- `npx parcel index.html` - For development
+- `npx parcel build index.html` - For production
+
+Here, `index.html` is our entry point.
+
+## Next step
+For the remaining lessons, I'm going to use the react modern build setup locate on the repository [marnelfr/react-app](https://github.com/marnelfr/react-app)
